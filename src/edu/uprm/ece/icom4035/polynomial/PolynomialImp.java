@@ -10,22 +10,22 @@ import edu.uprm.ece.icom4035.list.List;
 
 
 public class PolynomialImp extends TermListFactory implements Polynomial {
-	
+
 	// List that contains all terms
 	private List<Term> List;
-	
-	 //Constructor sin parametro String
+
+	//Constructor sin parametro String
 	public PolynomialImp(){
 		this.List = new TermListFactory().newListFactory().newInstance();
 	}
-	
+
 	// Constructor con String
 	public PolynomialImp(String ps){
 		this.List = new TermListFactory().newListFactory().newInstance();
 		toPoly(ps);
 	}
-	
-	 // Convierte de string a una lista de TermImp
+
+	// Convierte de string a una lista de TermImp
 	public void toPoly(String ps) {
 		String[] terms = ps.split("\\+");
 		for(String t: terms) {
@@ -119,24 +119,6 @@ public class PolynomialImp extends TermListFactory implements Polynomial {
 		return p;
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	public PolynomialImp sortByDegree(PolynomialImp p){
 		for(int i = 0; i < p.List.size(); i++) 
 			for(int l = i+1; l < p.List.size(); l++) 
@@ -152,7 +134,6 @@ public class PolynomialImp extends TermListFactory implements Polynomial {
 		PolynomialImp first = (PolynomialImp) P2;
 		PolynomialImp second = this;
 		PolynomialImp result = new PolynomialImp();
-
 
 		for(Term i: first.getList()) {
 			result.List.add(i);
@@ -195,20 +176,14 @@ public class PolynomialImp extends TermListFactory implements Polynomial {
 				if(result.List.get(i).getExponent() == result.List.get(l).getExponent()) {
 					result.List.set(i, new TermImp(result.getList().get(i).getCoefficient() + result.getList().get(l).getCoefficient(),result.getList().get(i).getExponent()));
 					result.List.remove(l);
-
 				}
 		return sortByDegree(result);
 	}
 
-
-
-
 	@Override
 	public Polynomial indefiniteIntegral() {
-
 		PolynomialImp th = this;
 		PolynomialImp res = new PolynomialImp();
-
 		for( Term i : th.getList()) {
 			if( i.getExponent() != 0) {
 				res.getList().add(new TermImp(i.getCoefficient() / ((double) i.getExponent() + 1), i.getExponent() + 1) );
@@ -222,12 +197,8 @@ public class PolynomialImp extends TermListFactory implements Polynomial {
 	@Override
 	public double definiteIntegral(double a, double b) {
 		PolynomialImp result = (PolynomialImp) this.indefiniteIntegral();
-
-
 		return result.evaluate(b) - result.evaluate(a);
 	}
-
-
 
 	@Override
 	public boolean equals(Polynomial P) {
